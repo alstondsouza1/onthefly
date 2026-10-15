@@ -1,3 +1,4 @@
+import { getTripDestinations } from '../controllers/tripsDestinations.js'
 import express from 'express'
 import {
   getTrips,
@@ -11,6 +12,7 @@ const router = express.Router()
 
 router.get('/', getTrips)
 router.get('/:id', getTripById)
+router.get('/:tripId/destinations', getTripDestinations)
 router.post('/', createTrip)
 router.patch('/:id', updateTrip)
 router.delete('/:id', deleteTrip)
