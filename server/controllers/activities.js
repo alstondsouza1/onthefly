@@ -182,6 +182,28 @@ export const deleteActivity = async (req, res) => {
       })
     }
 }
+
+export const getActivitiesByTrip = async (req, res) => {
+    try {
+      const { tripId } = req.params
+  
+      const results = await pool.query(
+        `SELECT *
+         FROM activities
+         WHERE trip_id = $1
+         ORDER BY id`,
+        [tripId]
+      )
+  
+      res.status(200).json(results.rows)
+    } catch (error) {
+      console.error('Error getting trip activities:', error.message)
+  
+      res.status(500).json({
+        error: 'Failed to get trip activities'
+      })
+    }
+  }  
   
   
   

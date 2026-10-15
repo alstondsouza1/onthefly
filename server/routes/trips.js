@@ -1,4 +1,6 @@
+
 import { getTripDestinations } from '../controllers/tripsDestinations.js'
+import { getActivitiesByTrip } from '../controllers/activities.js'
 import express from 'express'
 import {
   getTrips,
@@ -13,6 +15,8 @@ const router = express.Router()
 router.get('/', getTrips)
 router.get('/:id', getTripById)
 router.get('/:tripId/destinations', getTripDestinations)
+router.get('/:tripId/activities', getActivitiesByTrip)
+
 router.post('/', createTrip)
 router.patch('/:id', updateTrip)
 router.delete('/:id', deleteTrip)

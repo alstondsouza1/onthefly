@@ -146,6 +146,24 @@ export const getTripsByDestination = async (req, res) => {
       })
     }
 }
+
+export const getAllTripsDestinations = async (req, res) => {
+    try {
+      const results = await pool.query(
+        `SELECT *
+         FROM trips_destinations
+         ORDER BY trip_id, destination_id`
+      )
+  
+      res.status(200).json(results.rows)
+    } catch (error) {
+      console.error('Error getting trip destinations:', error.message)
+  
+      res.status(500).json({
+        error: 'Failed to get trip destinations'
+      })
+    }
+  }  
   
   
   
