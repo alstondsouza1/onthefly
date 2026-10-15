@@ -116,5 +116,36 @@ export const removeDestinationFromTrip = async (req, res) => {
       })
     }
 }
+
+export const getTripsByDestination = async (req, res) => {
+    try {
+      const { destinationId } = req.params
+  
+      if (!/^[1-9]\d*$/.test(destinationId)) {
+        return res.status(400).json({
+          error: 'Invalid destination ID'
+        })
+      }
+  
+      const results = await pool.query(
+        `SELECT t.*
+         FROM trips t
+         JOIN trips_destinations td
+           ON t.id = td.trip_id
+         WHERE td.destination_id = $1
+         ORDER BY t.id`,
+        [destinationId]
+      )
+  
+      res.status(200).json(results.rows)
+    } catch (error) {
+      console.error('Error getting trips by destination:', error.message)
+  
+      res.status(500).json({
+        error: 'Failed to get trips by destination'
+      })
+    }
+}
+  
   
   
